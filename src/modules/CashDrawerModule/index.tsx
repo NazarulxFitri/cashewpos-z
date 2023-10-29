@@ -78,7 +78,7 @@ const CashDrawerModule = () => {
           })}
         </Grid>
 
-        <Box
+        {/* <Box
           sx={{
             background: "#FFF",
             boxShadow: "1px 1px 10px #D9D9D9",
@@ -94,19 +94,17 @@ const CashDrawerModule = () => {
             sx={{
               position: "absolute",
               left: "-20px",
-              background: "#FFF",
-
               width: "fit-content",
               px: 1,
               py: 1,
             }}
             onClick={() => (showCart ? setShowCart(false) : setShowCart(true))}
           >
-            <CartIcon size="24px" />
+            <CartIcon color={!showCart ? "#333" : "#7CB9E8"} size="24px" />
           </Box>
 
           <Cart itemAdded={addToCart} {...{ setAddToCart }} />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
