@@ -1,5 +1,6 @@
 import {
   CashDrawerIcon,
+  HomeIcon,
   InboundIcon,
   ReportIcon,
   TransactionIcon,
@@ -19,8 +20,7 @@ const NavBarModule: React.FC = () => {
     <Grid
       container
       flexDirection={`column`}
-      px={4}
-      py={4}
+      p={4}
       sx={{
         boxShadow: "1px 1px 10px #D9D9D9",
 
@@ -32,6 +32,14 @@ const NavBarModule: React.FC = () => {
       <Grid item display="flex" mx="auto" mb={2}>
         <h1 className={nothingYouCouldDo.className}>Cashew</h1>
         <h1 className={nothingYouCouldDo.className}>POS</h1>
+      </Grid>
+      <Grid item display="flex">
+        <Box my="auto" mr={1}>
+          <HomeIcon color="#333" size="24px" />
+        </Box>
+        <UniLink href="/">
+          <UniTypography color={"#000"} variant="body1" text={`Dashboard`} />
+        </UniLink>
       </Grid>
       <Grid item display="flex">
         <Box my="auto" mr={1}>
@@ -64,7 +72,7 @@ const NavBarModule: React.FC = () => {
         <Box my="auto" mr={1}>
           <ReportIcon color="#333" size="24px" />
         </Box>
-        <UniLink href="/transaction">
+        <UniLink href="/z-reporting">
           <UniTypography color={"#000"} variant="body1" text={`Z-reporting`} />
         </UniLink>
       </Grid>

@@ -1,9 +1,12 @@
 import { ref, set } from "firebase/database";
 import db from "../../services/firebaseApp";
 import useGetTransaction from "./useGetTransaction";
+import { recentActivity } from "@/state/atom";
+import { useRecoilState } from "recoil";
 
 export default function usePostAddTransaction() {
   const { data: transaction } = useGetTransaction();
+  const [message, setMessage] = useRecoilState(recentActivity);
 
   const id = !transaction?.length ? 0 : transaction?.length;
 
@@ -25,6 +28,7 @@ export default function usePostAddTransaction() {
         balance,
         itemAdded,
       });
+      setMessage(`trx-` + (1000000000 + id))
     } catch (err) {}
   };
 

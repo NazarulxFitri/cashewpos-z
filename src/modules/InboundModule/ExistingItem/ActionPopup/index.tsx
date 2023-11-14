@@ -26,14 +26,9 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
 }) => {
   const { action } = usePostUpdateProduct();
   const [incomingQty, setIncomingQty] = useState<number>(0);
-  const [calcQty, setCalcQty] = useState<number>();
-
-  useEffect(() => {
-    setCalcQty(qty + incomingQty);
-  }, [incomingQty]);
 
   const handleClick = async () => {
-    await action(sku, calcQty!);
+    await action(sku, incomingQty!);
     window.location.reload();
   };
 

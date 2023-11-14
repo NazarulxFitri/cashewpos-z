@@ -2,24 +2,13 @@ import { ref, get, child } from "firebase/database";
 import { useEffect, useRef, useState } from "react";
 import db from "../../services/firebaseApp";
 
-interface GetTransactionConfig {
-  id: string;
-  amountPaid: string;
-  balance: string;
+export interface GetOpeningConfig {
   date: string;
-  time: string;
-  totalAmount: string;
-  itemAdded: {
-    category: string;
-    color: string;
-    name: string;
-    price: number;
-    qty: number;
-    sku: string;
-  }[];
+  isOpening: true;
+  cashOnHand: string;
 }
 
-export default function useGetTransaction() {
+export default function useGetOpening() {
   const [isLoading, setIsLoading] = useState(true);
   const snapshot = useRef(null);
   const error = useRef(null);
@@ -27,7 +16,7 @@ export default function useGetTransaction() {
   const getValue = async () => {
     try {
       const root = ref(db);
-      const dbGet = await get(child(root, "transaction"));
+      const dbGet = await get(child(root, "zreporting"));
       const dbValue = dbGet.val();
       snapshot.current = dbValue;
     } catch (getError) {
@@ -42,7 +31,7 @@ export default function useGetTransaction() {
   }, [snapshot]);
 
   const dataObj = snapshot.current;
-  const data: GetTransactionConfig[] = [];
+  const data: GetOpeningConfig[] = [];
 
   for (let key in dataObj as any) {
     data.push(dataObj?.[key]!);

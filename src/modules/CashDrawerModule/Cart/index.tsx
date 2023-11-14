@@ -4,6 +4,8 @@ import usePostAddTransaction from "@/data/usePostAddTransaction";
 import usePostUpdateProduct from "@/data/usePostUpdateProduct";
 import { Box, Grid, TextField } from "@mui/material";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { recentActivity } from "@/state/atom";
 
 interface CartProps {
   itemAdded: GetProductConfig[];
@@ -16,6 +18,7 @@ interface ExistingSku {
 }
 
 const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
+  const [message, setMessage] = useRecoilState(recentActivity);
   const [paymentType, setPaymentType] = useState("cash");
   const [amountPaid, setAmountPaid] = useState(0);
   const { action } = usePostAddTransaction();

@@ -2,18 +2,23 @@ import {
   CartIcon,
   CashDrawerIcon,
   ProductCard,
+  UniButton,
   UniTypography,
 } from "@/components";
 import useGetProduct from "@/data/useGetProduct";
 import { Box, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cart from "./Cart";
+import { useRecoilState } from "recoil";
+import { recentActivity } from "@/state/atom";
+import Link from "next/link";
 
 const CashDrawerModule = () => {
   const { data } = useGetProduct();
   const [sku, setSku] = useState("");
   const [name, setName] = useState("");
   const [showCart, setShowCart] = useState(false);
+  const [message, setMessage] = useRecoilState(recentActivity);
 
   const [addToCart, setAddToCart] = useState([]);
 
@@ -24,8 +29,28 @@ const CashDrawerModule = () => {
   );
 
   return (
-    <Box>
-      <Box sx={{ display: "flex" }}>
+    <Box sx={{ position: "relative" }}>
+      {/* {!!message && (
+        <Box
+          sx={{
+            background: "#66FF99",
+            mb: 2,
+            p: 2,
+            display: "flex",
+          }}
+        >
+          <UniTypography
+            sx={{ height: "fit-content", my: "auto", mr: 2 }}
+            variant="body1"
+            text={`Transaction successfully stored. Invoice ID : ${message!}`}
+          />
+          <Link href={`/receipt?id=${message}`} target="_blank">
+            Quick print
+          </Link>
+        </Box>
+      )} */}
+
+      <Box sx={{ display: "flex", pt: 4 }}>
         <Box sx={{ my: "auto", mr: 1 }}>
           <CashDrawerIcon size="24px" />
         </Box>
@@ -78,7 +103,9 @@ const CashDrawerModule = () => {
           })}
         </Grid>
 
-        {/* <Box
+        <Box
+        key={`${showCart}`}
+         className={`animate__animated animate__fadeInRight`}
           sx={{
             background: "#FFF",
             boxShadow: "1px 1px 10px #D9D9D9",
@@ -104,7 +131,7 @@ const CashDrawerModule = () => {
           </Box>
 
           <Cart itemAdded={addToCart} {...{ setAddToCart }} />
-        </Box> */}
+        </Box>
       </Box>
     </Box>
   );
