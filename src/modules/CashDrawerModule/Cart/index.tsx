@@ -1,11 +1,11 @@
-import { CartIcon, CloseIcon, UniButton, UniTypography } from "@/components";
+import { CloseIcon, UniButton, UniTypography } from "@/components";
 import { GetProductConfig } from "@/data/useGetProduct";
 import usePostAddTransaction from "@/data/usePostAddTransaction";
 import usePostUpdateProduct from "@/data/usePostUpdateProduct";
 import { Box, Grid, TextField } from "@mui/material";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { recentActivity } from "@/state/atom";
+import useGetOpening from "@/data/useGetOpening";
+import ClosedCart from "./ClosedCart";
 
 interface CartProps {
   itemAdded: GetProductConfig[];
@@ -18,14 +18,18 @@ interface ExistingSku {
 }
 
 const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
-  const [message, setMessage] = useRecoilState(recentActivity);
   const [paymentType, setPaymentType] = useState("cash");
   const [amountPaid, setAmountPaid] = useState(0);
+
   const { action } = usePostAddTransaction();
   const { action: updateProduct } = usePostUpdateProduct();
+
   const dateJs = new Date();
   const date = dateJs.toLocaleDateString();
   const time = dateJs.toLocaleTimeString();
+
+  const { data: openingData } = useGetOpening();
+  const isOpen = !!openingData?.find((i) => i.date === date && !i.hasClosed);
 
   let totalAmount = 0;
   for (let i = 0; i < itemAdded.length; i++) {
@@ -68,6 +72,8 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
       prevItem.filter((i, idx) => selectedId !== idx)
     );
   };
+
+  if (!isOpen) return <ClosedCart />;
 
   return (
     <Box>

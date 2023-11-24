@@ -1,4 +1,4 @@
-import { UniButton, UniTypography } from "@/components";
+import { TransactionIcon, UniButton, UniTypography } from "@/components";
 import useGetTransaction from "@/data/useGetTransaction";
 import {
   Box,
@@ -10,14 +10,31 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
+import Link from "next/link";
+import { useState } from "react";
 
 const TransactionModule = () => {
   const { data } = useGetTransaction();
+  const [dateInput, setDateInput] = useState<string>();
+  const [trxInput, setTrxInput] = useState<string>();
+
+  const filteredData = !!dateInput
+    ? data?.filter((i) => i.date === dateInput).reverse()
+    : data.reverse();
 
   return (
-    <Box>
-      <UniTypography variant="h1" text="Transaction" />
-      <Box mt={8}>
+    <Box sx={{ position: "relative", px: 4 }}>
+      <Box sx={{ display: "flex", pt: 4 }}>
+        <Box sx={{ my: "auto", mr: 1 }}>
+          <TransactionIcon size="24px" />
+        </Box>
+        <UniTypography
+          variant="body1"
+          sx={{ fontSize: "24px" }}
+          text="Transaction"
+        />
+      </Box>
+      <Box mt={4}>
         <Grid container columnSpacing={1} rowSpacing={1}>
           <Grid item xs={12} md={4}>
             <TextField
@@ -27,6 +44,7 @@ const TransactionModule = () => {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e) => setDateInput(e.target.value)}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -37,10 +55,11 @@ const TransactionModule = () => {
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(e) => setTrxInput(e.target.value)}
             />
           </Grid>
         </Grid>
-        <Table>
+        <Table sx={{ mt: 2 }}>
           <TableHead>
             <TableRow>
               <TableCell sx={{ textAlign: "center" }}>Transaction ID</TableCell>
@@ -53,7 +72,7 @@ const TransactionModule = () => {
             </TableRow>
           </TableHead>
           <TableBody sx={{ textAlign: "center" }}>
-            {data?.map((i) => (
+            {filteredData?.map((i) => (
               <TableRow>
                 <TableCell sx={{ textAlign: "center" }}>{i.id}</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
@@ -66,12 +85,11 @@ const TransactionModule = () => {
                 <TableCell sx={{ textAlign: "center" }}>{i.date}</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>{i.time}</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  <UniButton variant="outlined" sx={{ mx: 1 }}>
-                    Detail
-                  </UniButton>
-                  <UniButton variant="outlined" sx={{ mx: 1 }}>
-                    Quick Print
-                  </UniButton>
+                  <Link href={`/receipt?id=${i.id}`} target="_blank">
+                    <UniButton variant="outlined" sx={{ mx: 1 }}>
+                      Detail
+                    </UniButton>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}

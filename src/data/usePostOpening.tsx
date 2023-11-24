@@ -7,8 +7,9 @@ export default function usePostAddOpening() {
     try {
       set(ref(db, "zreporting/" + strippedDate), {
         date: date,
-        isOpening: true,
-        cashOnHand: cashOnHand
+        cashOnHand: cashOnHand,
+        hasOpened: true,
+        hasClosed: false,
       });
     } catch (err) {}
   };

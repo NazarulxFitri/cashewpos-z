@@ -1,9 +1,9 @@
-import { UniTypography } from "@/components";
+import { ReportIcon, UniTypography } from "@/components";
 import { Box } from "@mui/material";
 import Opening from "./Opening";
 import useGetOpening from "@/data/useGetOpening";
 import useGetTransaction from "@/data/useGetTransaction";
-import usePostUpdateOpening from "@/data/usePostUpdateOpening";
+import Idle from "./Idle";
 
 const ZReportingModule = () => {
   const { data } = useGetOpening();
@@ -11,34 +11,26 @@ const ZReportingModule = () => {
   const date = new Date().toLocaleDateString();
   const openingData = data?.find((i) => i.date === date);
   const transactionData = transaction?.filter((i) => i.date === date);
-  const initialCash = openingData?.cashOnHand;
-
-  let totalSale = 0;
-  transactionData?.forEach((i) => (totalSale += +i.totalAmount));
-
-  const { action } = usePostUpdateOpening();
-
-  const handleClick = async () => {
-    await action(date, totalSale, +totalSale + +initialCash!);
-    window?.location.reload();
-  };
 
   return (
-    <Box>
-      <UniTypography variant="h1" text="Z-reporting" />
-      <Box>{!!openingData?.isOpening && <Opening />}</Box>
-      {!openingData?.isOpening && (
-        <Box>
-          <Box>
-            <UniTypography
-              variant="body1"
-              text={`Initial cash : ${initialCash}`}
-            />
-            <UniTypography variant="body1" text={`Total sale : ${totalSale}`} />
-          </Box>
-          <Box onClick={handleClick}>Closing</Box>
+    <Box sx={{ position: "relative", px: 4 }}>
+      <Box sx={{ display: "flex", pt: 4 }}>
+        <Box sx={{ my: "auto", mr: 1 }}>
+          <ReportIcon size="24px" />
         </Box>
-      )}
+        <UniTypography
+          variant="body1"
+          sx={{ fontSize: "24px" }}
+          text="Z-reporting"
+        />
+      </Box>
+      <Box mt={4}>
+        {!openingData?.hasOpened ? (
+          <Opening />
+        ) : (
+          <Idle {...{ openingData, transactionData }} />
+        )}
+      </Box>
     </Box>
   );
 };

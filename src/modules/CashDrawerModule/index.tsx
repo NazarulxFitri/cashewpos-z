@@ -1,8 +1,8 @@
 import {
   CartIcon,
   CashDrawerIcon,
+  Notification,
   ProductCard,
-  UniButton,
   UniTypography,
 } from "@/components";
 import useGetProduct from "@/data/useGetProduct";
@@ -11,14 +11,23 @@ import { useEffect, useState } from "react";
 import Cart from "./Cart";
 import { useRecoilState } from "recoil";
 import { recentActivity } from "@/state/atom";
-import Link from "next/link";
+
+interface AddToCartConfig {
+  category: string;
+  color: string;
+  name: string;
+  price: number;
+  qty: number;
+  sku: string;
+}
 
 const CashDrawerModule = () => {
   const { data } = useGetProduct();
   const [sku, setSku] = useState("");
   const [name, setName] = useState("");
   const [showCart, setShowCart] = useState(false);
-  const [message, setMessage] = useRecoilState(recentActivity);
+  const [trxId, setTrxId] = useRecoilState(recentActivity);
+  const [showNotification, setShowNotification] = useState(false);
 
   const [addToCart, setAddToCart] = useState([]);
 
@@ -27,29 +36,22 @@ const CashDrawerModule = () => {
       i.name.toLowerCase().includes(name.toLowerCase()) &&
       i.sku.toLowerCase().includes(sku.toLowerCase())
   );
+  useEffect(() => {
+    !!trxId && setShowNotification(true);
+  }, [trxId]);
 
   return (
-    <Box sx={{ position: "relative" }}>
-      {/* {!!message && (
-        <Box
-          sx={{
-            background: "#66FF99",
-            mb: 2,
-            p: 2,
-            display: "flex",
-          }}
-        >
-          <UniTypography
-            sx={{ height: "fit-content", my: "auto", mr: 2 }}
-            variant="body1"
-            text={`Transaction successfully stored. Invoice ID : ${message!}`}
+    <Box sx={{ position: "relative", px: 4 }}>
+      {showNotification && (
+        <Box mx={-4}>
+          <Notification
+            status={"success"}
+            text={`Successfully sold. Receipt number <b>#${trxId}</b>`}
+            onClose={() => setShowNotification(false)}
+            redirectCta={`/receipt?id=${trxId}`}
           />
-          <Link href={`/receipt?id=${message}`} target="_blank">
-            Quick print
-          </Link>
         </Box>
-      )} */}
-
+      )}
       <Box sx={{ display: "flex", pt: 4 }}>
         <Box sx={{ my: "auto", mr: 1 }}>
           <CashDrawerIcon size="24px" />
@@ -88,7 +90,7 @@ const CashDrawerModule = () => {
         <Grid container mt={4} spacing={2}>
           {searchItem?.map((item) => {
             return (
-              <Grid item xs={3} sx={{}}>
+              <Grid item xs={6} sm={4} md={3} sx={{}}>
                 <ProductCard
                   sku={item?.sku}
                   name={item?.name}
@@ -104,8 +106,8 @@ const CashDrawerModule = () => {
         </Grid>
 
         <Box
-        key={`${showCart}`}
-         className={`animate__animated animate__fadeInRight`}
+          key={`${showCart}`}
+          className={`animate__animated animate__fadeInRight`}
           sx={{
             background: "#FFF",
             boxShadow: "1px 1px 10px #D9D9D9",
@@ -114,7 +116,8 @@ const CashDrawerModule = () => {
             right: showCart ? "0" : "-458px",
             top: "0",
             width: "480px",
-            minHeight: "100vh",
+            minHeight: "100%",
+            height: "fit-content",
           }}
         >
           <Box
@@ -127,9 +130,15 @@ const CashDrawerModule = () => {
             }}
             onClick={() => (showCart ? setShowCart(false) : setShowCart(true))}
           >
+            <UniTypography
+              key={`${addToCart?.length!}`}
+              className="animate__animated animate__wobble"
+              variant="body1"
+              text={`${addToCart?.length!}`}
+              sx={{ textAlign: "right", fontWeight: "700" }}
+            />
             <CartIcon color={!showCart ? "#333" : "#7CB9E8"} size="24px" />
           </Box>
-
           <Cart itemAdded={addToCart} {...{ setAddToCart }} />
         </Box>
       </Box>

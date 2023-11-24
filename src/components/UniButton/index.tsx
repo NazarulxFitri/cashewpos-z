@@ -5,7 +5,11 @@ interface UniButtonProps extends ButtonProps {
 }
 
 const UniButton: React.FC<UniButtonProps> = ({ children, ...props }) => {
-  return <Button {...props}>{children}</Button>;
+  return (
+    <Button {...props}>
+      {children}
+    </Button>
+  );
 };
 
 export default UniButton;

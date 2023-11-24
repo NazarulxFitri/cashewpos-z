@@ -3,30 +3,36 @@ import "animate.css";
 import NavBarModule from "@/modules/NavBarModule";
 import { Grid } from "@mui/material";
 import type { AppProps } from "next/app";
-import { useState } from "react";
 import { useRouter } from "next/router";
 import { RecoilRoot } from "recoil";
+import LayoutModule from "@/modules/LayoutModule";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const [expandNav, setExpandNav] = useState(true);
   const isReceipt = router?.pathname === "/receipt";
 
   return (
     <RecoilRoot>
-      <Grid container>
-        <Grid
-          item
-          xs={!expandNav ? 3 : 1}
-          md={2}
-          sx={{ display: isReceipt ? "none" : "block", overflow: "hidden" }}
-        >
-          <NavBarModule />
+      <LayoutModule>
+        <Grid container justifyContent={"center"}>
+          <Grid
+            item
+            xs={12}
+            sm={3}
+            md={2}
+            sx={{
+              boxShadow: "1px 1px 10px #EFEFEF",
+              display: isReceipt ? "none" : "block",
+              overflow: "hidden",
+            }}
+          >
+            <NavBarModule />
+          </Grid>
+          <Grid item xs={12} sm={9} md={10}>
+            <Component {...pageProps} />
+          </Grid>
         </Grid>
-        <Grid item xs={isReceipt ? 12 : 9} md={isReceipt ? 12 : 10}>
-          <Component {...pageProps} />
-        </Grid>
-      </Grid>
+      </LayoutModule>
     </RecoilRoot>
   );
 }

@@ -1,16 +1,19 @@
 import { Box } from "@mui/material";
-import { CloseIcon, UniTypography } from "..";
+import { CloseIcon, UniButton, UniTypography } from "..";
+import Link from "next/link";
 
 interface NotificationProps {
   status: "success" | "warning" | "error";
   text: string;
-  onClick: () => void;
+  onClose: () => void;
+  redirectCta?: string;
 }
 
 const Notification: React.FC<NotificationProps> = ({
   status,
   text,
-  onClick,
+  onClose,
+  redirectCta,
 }) => {
   return (
     <Box
@@ -21,17 +24,23 @@ const Notification: React.FC<NotificationProps> = ({
             : status === "error"
             ? "#ff0e0e"
             : "#EED202",
-        borderRadius: "16px",
         boxShadow: "1px 1px 10px #d9d9d9",
         display: "flex",
       }}
       mb={2}
       p={2}
     >
-      <Box>
+      <Box m={"auto 8px auto 0"}>
         <UniTypography variant="body1" text={text} />
       </Box>
-      <Box sx={{ m: "auto 0 0 auto" }} onClick={onClick}>
+      <Box>
+        <Link href={redirectCta!} target="_blank">
+          <UniButton variant="outlined">
+            <UniTypography variant="body1" text="View receipt" />
+          </UniButton>
+        </Link>
+      </Box>
+      <Box sx={{ m: "auto 48px 0 auto" }} onClick={onClose}>
         <CloseIcon />
       </Box>
     </Box>

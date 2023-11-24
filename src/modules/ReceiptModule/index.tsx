@@ -15,14 +15,11 @@ import { useRouter } from "next/router";
 const ReceiptModule = () => {
   const router = useRouter();
   const id = router?.query?.id;
-  const { data } = useGetTransaction();
-
+  const { data, isLoading } = useGetTransaction();
   const trxItem = data?.find((i) => i.id === id);
 
-  console.log("xxx data", trxItem);
-
   return (
-    <Box mt={4}>
+    <Box mt={4} justifyContent={"center"} id="yesy">
       <UniTypography variant="body1" sx={{ fontSize: "24px" }} text="Logo" />
       <Box>
         <Box>
@@ -87,7 +84,9 @@ const ReceiptModule = () => {
           </TableContainer>
         </Box>
       </Box>
-      {/* <UniButton onClick={() => window?.print()}>Test</UniButton> */}
+      <Box mt={4}>
+        <UniButton variant="outlined" onClick={() => window?.print()}>Print</UniButton>
+      </Box>
     </Box>
   );
 };

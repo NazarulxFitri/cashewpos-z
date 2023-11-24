@@ -10,7 +10,14 @@ interface ProductCardProps {
   color: string;
   category: string;
   qty: number;
-  addToCart: Array<Object>;
+  addToCart: {
+    category: string;
+    color: string;
+    name: string;
+    price: number;
+    qty: number;
+    sku: string;
+  }[];
   setAddToCart: any;
 }
 
@@ -89,21 +96,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
         style={{ width: "100%", height: "auto" }}
       />
       <Box>
-        <Box display="flex">
-          <Box>
-            <UniTypography
-              sx={{ fontWeight: "700" }}
-              variant="body1"
-              text={name}
-            />
-          </Box>
-          <Box m="0 0 0 auto">
-            <UniTypography
-              sx={{ fontWeight: "700" }}
-              variant="body1"
-              text={`RM ${price}`}
-            />
-          </Box>
+        <Box>
+          <UniTypography
+            sx={{
+              fontWeight: "700",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+            variant="body1"
+            text={name}
+          />
+        </Box>
+        <Box m="0 0 0 auto">
+          <UniTypography
+            sx={{ fontWeight: "700" }}
+            variant="body1"
+            text={`RM ${price}`}
+          />
         </Box>
         <Box>
           <UniTypography variant="body1" text={`Color : ${color}`} />
@@ -117,9 +127,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
           variant="outlined"
         >
           <CartIcon size="24px" />
-          <Box ml={2}>
-            <UniTypography variant="body1" text="Add to cart" />
-          </Box>
+          <UniTypography
+            sx={{ fontWeight: "300", ml: 1, textTransform: "capitalize" }}
+            variant="body1"
+            text="Add to cart"
+          />
         </UniButton>
       </Box>
     </Box>

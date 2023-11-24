@@ -3,9 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import db from "../../services/firebaseApp";
 
 export interface GetOpeningConfig {
-  date: string;
-  isOpening: true;
-  cashOnHand: string;
+  date?: string;
+  hasOpened?: boolean;
+  hasClosed?: boolean;
+  cashOnHand?: number;
 }
 
 export default function useGetOpening() {

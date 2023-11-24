@@ -8,9 +8,10 @@ export default function usePostUpdateOpening() {
 
     try {
       update(ref(db, `zreporting/${strippedDate}`), {
-        isOpening: false,
         totalSale: totalSale,
         amountOnHand: amountOnHand,
+        hasOpened: true,
+        hasClosed: true,
       });
     } catch (err) {
       console.log(err);

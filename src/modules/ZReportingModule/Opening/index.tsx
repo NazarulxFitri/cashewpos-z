@@ -1,8 +1,13 @@
+import { UniButton, UniTypography } from "@/components";
 import usePostAddOpening from "@/data/usePostOpening";
 import { Box, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const Opening = () => {
+interface OpeningProps {
+  
+}
+
+const Opening: React.FC<OpeningProps> = () => {
   const date = new Date();
   const [dateString, setDateString] = useState<string>();
   const [cashOnHand, setCashOnHand] = useState<number>();
@@ -19,16 +24,22 @@ const Opening = () => {
 
   return (
     <Box>
-      <h1>Opening</h1>
-      <p>Do opening for {dateString}</p>
-      <TextField
-        placeholder="Cash on-hand"
-        variant="outlined"
-        type="number"
-        onChange={(e) => setCashOnHand(+e.target.value)}
-      />
-      <Box mt={2} onClick={handleClick}>
-        Proceed
+      <UniTypography variant="body1" text={`${dateString} - Create opening`} />
+      <Box sx={{ display: "flex", mt: 4 }} gap={2}>
+        <TextField
+          variant="standard"
+          label="Cash on-hand"
+          type="number"
+          InputLabelProps={{ shrink: true }}
+          onChange={(e) => setCashOnHand(+e.target.value)}
+        />
+        <UniButton variant="outlined" onClick={handleClick}>
+          <UniTypography
+            sx={{ cursor: "pointer" }}
+            variant="body1"
+            text={`Proceed`}
+          />
+        </UniButton>
       </Box>
     </Box>
   );

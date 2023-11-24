@@ -38,4 +38,12 @@ export const isOpening = atom({
   ]
 });
 
+export const isAuth = atom({
+  key: "isAuthenticated",
+  default: false,
+  effects: [
+    sessionStorageEffect('isAuthenticated'),
+  ]
+});
+
 

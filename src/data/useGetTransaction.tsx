@@ -2,7 +2,7 @@ import { ref, get, child } from "firebase/database";
 import { useEffect, useRef, useState } from "react";
 import db from "../../services/firebaseApp";
 
-interface GetTransactionConfig {
+export interface GetTransactionConfig {
   id: string;
   amountPaid: string;
   balance: string;
