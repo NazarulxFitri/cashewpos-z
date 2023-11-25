@@ -20,10 +20,10 @@ const Notification: React.FC<NotificationProps> = ({
       sx={{
         background:
           status === "success"
-            ? "#90EE90"
+            ? "#ebf6f5"
             : status === "error"
-            ? "#ff0e0e"
-            : "#EED202",
+            ? "#fbe3e8"
+            : null,
         boxShadow: "1px 1px 10px #d9d9d9",
         display: "flex",
       }}

@@ -3,9 +3,7 @@ import usePostAddOpening from "@/data/usePostOpening";
 import { Box, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-interface OpeningProps {
-  
-}
+interface OpeningProps {}
 
 const Opening: React.FC<OpeningProps> = () => {
   const date = new Date();
@@ -27,15 +25,19 @@ const Opening: React.FC<OpeningProps> = () => {
       <UniTypography variant="body1" text={`${dateString} - Create opening`} />
       <Box sx={{ display: "flex", mt: 4 }} gap={2}>
         <TextField
-          variant="standard"
-          label="Cash on-hand"
+          variant="outlined"
+          label="Cash on-hand (RM)"
           type="number"
           InputLabelProps={{ shrink: true }}
           onChange={(e) => setCashOnHand(+e.target.value)}
         />
         <UniButton variant="outlined" onClick={handleClick}>
           <UniTypography
-            sx={{ cursor: "pointer" }}
+            sx={{
+              cursor: "pointer",
+              textTransform: "capitalize",
+              fontWeight: "300",
+            }}
             variant="body1"
             text={`Proceed`}
           />

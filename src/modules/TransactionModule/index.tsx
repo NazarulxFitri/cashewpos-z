@@ -87,7 +87,11 @@ const TransactionModule = () => {
                 <TableCell sx={{ textAlign: "center" }}>
                   <Link href={`/receipt?id=${i.id}`} target="_blank">
                     <UniButton variant="outlined" sx={{ mx: 1 }}>
-                      Detail
+                      <UniTypography
+                        variant="body1"
+                        sx={{ textTransform: "capitalize", fontWeight: "300" }}
+                        text="Detail"
+                      />
                     </UniButton>
                   </Link>
                 </TableCell>

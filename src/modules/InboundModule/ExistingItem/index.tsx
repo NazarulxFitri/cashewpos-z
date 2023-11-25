@@ -19,7 +19,7 @@ const ExistingItem: React.FC<ExistingItemProps> = () => {
   );
 
   return (
-    <Box mt={8}>
+    <Box mt={4}>
       <Grid container columnSpacing={1} rowSpacing={1}>
         <Grid item xs={12} md={4}>
           <TextField
@@ -56,10 +56,10 @@ const ExistingItem: React.FC<ExistingItemProps> = () => {
           />
         </Grid>
       </Grid>
-      <Grid container mt={4} spacing={2}>
+      <Grid container mt={2} spacing={2}>
         {searchItem?.map((item) => {
           return (
-            <Grid item xs={3} sx={{}}>
+            <Grid item xs={6} sm={4} md={3} sx={{}}>
               <ConfigCard
                 sku={item?.sku}
                 name={item?.name}

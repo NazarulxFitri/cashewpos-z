@@ -1,4 +1,4 @@
-import { UniButton } from "@/components";
+import { UniButton, UniTypography } from "@/components";
 import usePostAddProduct from "@/data/usePostAddProduct";
 import { Box, Grid, TextField } from "@mui/material";
 import { useState } from "react";
@@ -31,7 +31,7 @@ const NewItem: React.FC<NewItemProps> = () => {
         <Grid item>
           <TextField
             sx={{ width: "320px" }}
-            variant="standard"
+            variant="outlined"
             label="Sku"
             InputLabelProps={{
               shrink: true,
@@ -43,7 +43,7 @@ const NewItem: React.FC<NewItemProps> = () => {
         <Grid item>
           <TextField
             sx={{ width: "320px" }}
-            variant="standard"
+            variant="outlined"
             label="Name"
             InputLabelProps={{
               shrink: true,
@@ -55,7 +55,7 @@ const NewItem: React.FC<NewItemProps> = () => {
         <Grid item>
           <TextField
             sx={{ width: "320px" }}
-            variant="standard"
+            variant="outlined"
             label="Price"
             InputLabelProps={{
               shrink: true,
@@ -68,7 +68,7 @@ const NewItem: React.FC<NewItemProps> = () => {
         <Grid item>
           <TextField
             sx={{ width: "320px" }}
-            variant="standard"
+            variant="outlined"
             label="Color"
             InputLabelProps={{
               shrink: true,
@@ -80,7 +80,7 @@ const NewItem: React.FC<NewItemProps> = () => {
         <Grid item>
           <TextField
             sx={{ width: "320px" }}
-            variant="standard"
+            variant="outlined"
             label="Category"
             InputLabelProps={{
               shrink: true,
@@ -92,7 +92,7 @@ const NewItem: React.FC<NewItemProps> = () => {
         <Grid item>
           <TextField
             sx={{ width: "320px" }}
-            variant="standard"
+            variant="outlined"
             label="Image"
             InputLabelProps={{
               shrink: true,
@@ -108,7 +108,11 @@ const NewItem: React.FC<NewItemProps> = () => {
           variant="outlined"
           onClick={handleClick}
         >
-          Submit
+          <UniTypography
+            text="Submit"
+            variant="body1"
+            sx={{ fontWeight: "300", textTransform: "capitalize" }}
+          />
         </UniButton>
       </Box>
     </Box>

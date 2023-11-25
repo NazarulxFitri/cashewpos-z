@@ -58,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         boxShadow: "1px 1px 10px #D9D9D9",
         p: 2,
         borderRadius: 4,
-        borderTop: "4px solid #7CB9E8",
+        borderTop: "4px solid #5cbdb9",
         position: "relative",
       }}
     >
@@ -73,7 +73,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <Box
           m="0 0 0 auto"
           sx={{
-            background: "#333",
+            background: "#5cbdb9",
             borderRadius: "24px",
             color: "#FFF",
             p: 1,

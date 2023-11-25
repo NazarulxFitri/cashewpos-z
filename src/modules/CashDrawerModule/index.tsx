@@ -137,7 +137,7 @@ const CashDrawerModule = () => {
               text={`${addToCart?.length!}`}
               sx={{ textAlign: "right", fontWeight: "700" }}
             />
-            <CartIcon color={!showCart ? "#333" : "#7CB9E8"} size="24px" />
+            <CartIcon color={"#5cbdb9"} size="24px" />
           </Box>
           <Cart itemAdded={addToCart} {...{ setAddToCart }} />
         </Box>

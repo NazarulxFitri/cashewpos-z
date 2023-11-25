@@ -17,8 +17,8 @@ const ClosedCart: React.FC<ClosedCartProps> = () => {
         variant="body1"
         text={`Please do Opening first to do sale transaction`}
       />
-      <UniButton variant="outlined" sx={{ mt: 2 }} href="/z-reporting">
-        <UniTypography variant="body1" text={`Create opening`} />
+      <UniButton fullWidth variant="outlined" sx={{ mt: 2, py: 1 }} href="/z-reporting">
+        <UniTypography sx={{ textTransform: "capitalize", fontWeight: "300" }} variant="body1" text={`Create opening`} />
       </UniButton>
     </Box>
   );

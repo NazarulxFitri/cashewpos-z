@@ -1,11 +1,12 @@
 import "@/styles/globals.css";
 import "animate.css";
 import NavBarModule from "@/modules/NavBarModule";
-import { Grid } from "@mui/material";
+import { Grid, ThemeProvider } from "@mui/material";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { RecoilRoot } from "recoil";
 import LayoutModule from "@/modules/LayoutModule";
+import { theme } from "@/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
+      <ThemeProvider theme={theme}>
       <LayoutModule>
         <Grid container justifyContent={"center"}>
           <Grid
@@ -21,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
             sm={3}
             md={2}
             sx={{
-              boxShadow: "1px 1px 10px #EFEFEF",
+              background: "#fbe3e8",
               display: isReceipt ? "none" : "block",
               overflow: "hidden",
             }}
@@ -33,6 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </Grid>
         </Grid>
       </LayoutModule>
+      </ThemeProvider>
     </RecoilRoot>
   );
 }

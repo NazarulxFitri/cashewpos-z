@@ -9,6 +9,7 @@ import {
 } from "@/components";
 import { Box, Grid } from "@mui/material";
 import { Nothing_You_Could_Do } from "next/font/google";
+import { useRouter } from "next/router";
 
 const nothingYouCouldDo = Nothing_You_Could_Do({
   subsets: ["latin"],
@@ -16,6 +17,8 @@ const nothingYouCouldDo = Nothing_You_Could_Do({
 });
 
 const NavBarModule: React.FC = () => {
+  const router = useRouter();
+
   return (
     <Grid
       container

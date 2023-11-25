@@ -1,4 +1,4 @@
-import { Notification, UniTypography } from "@/components";
+import { InboundIcon, Notification, UniTypography } from "@/components";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import NewItem from "./NewItem";
@@ -17,20 +17,30 @@ const InboundModule = () => {
     setRecentAction("");
   }
   return (
-    <Box>
+    <Box sx={{ position: "relative", px: 4 }}>
       {recentAction && (
         <Notification
           status="success"
           text={`Successfully ${recentAction}`}
-          onClick={closeNotification}
+          onClose={closeNotification}
         />
       )}
-      <UniTypography variant="h1" text="Inbound" />
+      
+      <Box sx={{ display: "flex", pt: 4 }}>
+        <Box sx={{ my: "auto", mr: 1 }}>
+          <InboundIcon size="24px" />
+        </Box>
+        <UniTypography
+          variant="body1"
+          sx={{ fontSize: "24px" }}
+          text="Inbound"
+        />
+      </Box>
+
       <Box
         sx={{
-          borderTop: "1px solid #EFEFEF",
+          borderTop: "1px solid #ebf6f5",
           cursor: "pointer",
-
           width: "fit-content",
         }}
         display={"flex"}
@@ -39,20 +49,18 @@ const InboundModule = () => {
       >
         <Box
           onClick={() => setTab(0)}
-          sx={{ background: tab === 0 ? "#EFEFEF" : "inherit", p: 2 }}
+          sx={{ background: tab === 0 ? "#ebf6f5" : "inherit", p: 2 }}
         >
           <UniTypography
-            sx={{ fontWeight: tab === 0 ? "700" : "300" }}
             text="Update Existing Item"
             variant="body1"
           />
         </Box>
         <Box
           onClick={() => setTab(1)}
-          sx={{ background: tab === 1 ? "#EFEFEF" : "inherit", p: 2 }}
+          sx={{ background: tab === 1 ? "#ebf6f5" : "inherit", p: 2 }}
         >
           <UniTypography
-            sx={{ fontWeight: tab === 1 ? "700" : "300" }}
             text="New Registration Item"
             variant="body1"
           />
