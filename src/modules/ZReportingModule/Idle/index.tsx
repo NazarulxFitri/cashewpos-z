@@ -115,8 +115,8 @@ const Idle: React.FC<IdleProps> = ({ openingData, transactionData }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {transactionData?.map((i) => (
-                <TableRow>
+              {transactionData?.map((i, idx) => (
+                <TableRow key={idx}>
                   <TableCell>
                     <UniTypography variant="body1" text={`${i.id}`} />
                   </TableCell>

@@ -57,9 +57,9 @@ const ExistingItem: React.FC<ExistingItemProps> = () => {
         </Grid>
       </Grid>
       <Grid container mt={2} spacing={2}>
-        {searchItem?.map((item) => {
+        {searchItem?.map((item,idx) => {
           return (
-            <Grid item xs={6} sm={4} md={3} sx={{}}>
+            <Grid key={idx} item xs={6} sm={4} md={3} sx={{}}>
               <ConfigCard
                 sku={item?.sku}
                 name={item?.name}

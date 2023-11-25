@@ -83,6 +83,7 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
         {itemAdded?.map((i, idx) => {
           return (
             <Box
+            key={idx}
               id={`${idx}`}
               sx={{
                 borderBottom: "1px solid #EFEFEF",

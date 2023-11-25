@@ -72,8 +72,8 @@ const TransactionModule = () => {
             </TableRow>
           </TableHead>
           <TableBody sx={{ textAlign: "center" }}>
-            {filteredData?.map((i) => (
-              <TableRow>
+            {filteredData?.map((i, idx) => (
+              <TableRow key={idx}>
                 <TableCell sx={{ textAlign: "center" }}>{i.id}</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   {i.totalAmount}

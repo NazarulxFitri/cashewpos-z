@@ -39,9 +39,9 @@ const ReceiptModule = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {trxItem?.itemAdded?.map((i) => {
+                {trxItem?.itemAdded?.map((i, idx) => {
                   return (
-                    <TableRow>
+                    <TableRow key={idx}>
                       <TableCell>
                         {i.sku} | {i.name} | {i.color}
                       </TableCell>
