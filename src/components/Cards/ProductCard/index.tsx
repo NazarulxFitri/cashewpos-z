@@ -58,7 +58,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
         boxShadow: "1px 1px 10px #D9D9D9",
         p: 2,
         borderRadius: 4,
-        borderTop: "4px solid #5cbdb9",
         position: "relative",
       }}
     >
@@ -89,17 +88,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </Box>
       </Box>
       <Image
-        src={`/eyeglasses.webp`}
+        src={`/example-2.webp`}
         alt="Cashew POS"
         width={300}
         height={200}
-        style={{ width: "100%", height: "auto" }}
+        style={{ width: "100%", height: "auto", marginTop: "8px" }}
       />
-      <Box>
+      <Box mt={1}>
         <Box>
           <UniTypography
             sx={{
-              fontWeight: "700",
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -110,19 +108,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </Box>
         <Box m="0 0 0 auto">
           <UniTypography
-            sx={{ fontWeight: "700" }}
             variant="body1"
             text={`RM ${price}`}
           />
         </Box>
-        <Box>
-          <UniTypography variant="body1" text={`Color : ${color}`} />
-          <UniTypography variant="body1" text={`Category : ${category}`} />
-        </Box>
 
         <UniButton
           onClick={handleClick}
-          sx={{ display: "flex", mt: 4, py: 2 }}
+          sx={{ display: "flex", mt: 1, py: 2 }}
           fullWidth
           variant="outlined"
         >

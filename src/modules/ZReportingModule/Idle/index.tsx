@@ -1,4 +1,4 @@
-import { UniTypography } from "@/components";
+import { UniButton, UniTypography } from "@/components";
 import type { GetTransactionConfig } from "@/data/useGetTransaction";
 import usePostUpdateOpening from "@/data/usePostUpdateOpening";
 import {
@@ -28,7 +28,7 @@ const Idle: React.FC<IdleProps> = ({ openingData, transactionData }) => {
   const { action } = usePostUpdateOpening();
 
   let totalSale = 0;
-  transactionData?.forEach((i) => (totalSale += +i.totalAmount));
+  transactionData?.forEach((i) => (totalSale += +i.total));
 
   const handleClick = async () => {
     await action(
@@ -42,13 +42,16 @@ const Idle: React.FC<IdleProps> = ({ openingData, transactionData }) => {
   return (
     <Box>
       <Grid container sx={{ mt: 1 }} flexDirection={"column"} gap={1}>
-        <Grid item display="flex">
+        <Grid item>
           <UniTypography
             sx={{
-              background: "#EFEFEF",
-              borderRadius: "8px",
+              background: "#5cbdb9",
+              borderRadius: "24px",
+              color: "#FFF",
               p: 1,
+              fontSize: "12px",
               width: "fit-content",
+              height: "fit-content",
             }}
             variant="body1"
             text={
@@ -57,24 +60,6 @@ const Idle: React.FC<IdleProps> = ({ openingData, transactionData }) => {
                 : "Closed"
             }
           />
-          <Box
-            sx={{
-              display: !openingData?.hasClosed ? "block" : "none",
-              m: "auto 0 auto auto",
-            }}
-            onClick={handleClick}
-          >
-            <UniTypography
-              sx={{
-                background: "#EFEFEF",
-                borderRadius: "8px",
-                p: 1,
-                width: "fit-content",
-              }}
-              variant="body1"
-              text={"Closing"}
-            />
-          </Box>
         </Grid>
         <Grid item>
           <UniTypography variant="body1" text={`${openingData?.date}`} />
@@ -94,8 +79,19 @@ const Idle: React.FC<IdleProps> = ({ openingData, transactionData }) => {
         <Grid item>
           <UniTypography
             variant="body1"
-            text={`Total sale + Opening cash <b>RM${totalSale + openingData?.cashOnHand!}</b>`}
+            text={`Total sale + Opening cash <b>RM${
+              totalSale + openingData?.cashOnHand!
+            }</b>`}
           />
+        </Grid>
+        <Grid item mt={2}>
+          <UniButton onClick={handleClick}>
+            <UniTypography
+              variant="body1"
+              sx={{ textTransform: "capitalize", fontWeight: "300" }}
+              text={"Closing"}
+            />
+          </UniButton>
         </Grid>
       </Grid>
       <Box mt={2}>
@@ -121,10 +117,10 @@ const Idle: React.FC<IdleProps> = ({ openingData, transactionData }) => {
                     <UniTypography variant="body1" text={`${i.id}`} />
                   </TableCell>
                   <TableCell>
-                    <UniTypography variant="body1" text={`Cash`} />
+                    <UniTypography variant="body1" text={i.paymentType} />
                   </TableCell>
                   <TableCell>
-                    <UniTypography variant="body1" text={`${i.totalAmount}`} />
+                    <UniTypography variant="body1" text={`${i.total}`} />
                   </TableCell>
                 </TableRow>
               ))}

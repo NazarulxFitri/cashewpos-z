@@ -8,7 +8,11 @@ export interface GetTransactionConfig {
   balance: string;
   date: string;
   time: string;
-  totalAmount: string;
+  total: number;
+  additionalDiscount: number;
+  subtotal: number;
+  paymentType: string;
+  remark?: string;
   itemAdded: {
     category: string;
     color: string;

@@ -13,20 +13,28 @@ export default function usePostAddTransaction() {
   const action = async (
     date: string,
     time: string,
-    totalAmount: string,
+    paymentType: string,
+    subtotal: number,
     amountPaid: number,
     balance: string,
-    itemAdded: any
+    itemAdded: any,
+    additionalDiscount: number,
+    remark: string,
+    total: number
   ) => {
     try {
       set(ref(db, "transaction/" + (1000000000 + id)), {
         id: `trx-` + (1000000000 + id),
         date,
         time,
-        totalAmount,
+        paymentType,
+        subtotal,
         amountPaid,
         balance,
         itemAdded,
+        additionalDiscount,
+        remark,
+        total
       });
       setMessage(`trx-` + (1000000000 + id))
     } catch (err) {}

@@ -20,6 +20,8 @@ interface ExistingSku {
 const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
   const [paymentType, setPaymentType] = useState("cash");
   const [amountPaid, setAmountPaid] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [remark, setRemark] = useState("");
 
   const { action } = usePostAddTransaction();
   const { action: updateProduct } = usePostUpdateProduct();
@@ -31,22 +33,26 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
   const { data: openingData } = useGetOpening();
   const isOpen = !!openingData?.find((i) => i.date === date && !i.hasClosed);
 
-  let totalAmount = 0;
+  let subtotal = 0;
   for (let i = 0; i < itemAdded.length; i++) {
-    totalAmount += itemAdded?.[i]?.price;
+    subtotal += itemAdded?.[i]?.price;
   }
-  let balance = (amountPaid - totalAmount).toFixed(2);
-  const disabled =
-    amountPaid < totalAmount || !paymentType || itemAdded.length < 1;
+  const total = +(subtotal - discount).toFixed(2);
+  let balance = (amountPaid - total).toFixed(2);
+  const disabled = amountPaid < total || !paymentType || itemAdded.length < 1;
 
   const handleClick = async () => {
     await action(
       date,
       time,
-      totalAmount.toFixed(2),
+      paymentType,
+      +subtotal.toFixed(2),
       amountPaid,
       balance,
-      itemAdded
+      itemAdded,
+      +discount.toFixed(2),
+      remark,
+      +total.toFixed(2)
     );
 
     let existingSku: ExistingSku[] = [];
@@ -83,7 +89,7 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
         {itemAdded?.map((i, idx) => {
           return (
             <Box
-            key={idx}
+              key={idx}
               id={`${idx}`}
               sx={{
                 borderBottom: "1px solid #EFEFEF",
@@ -113,8 +119,23 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
         })}
       </Box>
 
+      <Box>
+        <TextField
+          sx={{ mt: 2 }}
+          fullWidth
+          type="number"
+          label="Add discount (RM)"
+          variant="outlined"
+          InputLabelProps={{ shrink: true }}
+          onChange={(e) => setDiscount(+e.target.value)}
+        />
+      </Box>
+
       <Box sx={{ width: "fit-content", m: "24px 0 0 auto" }}>
-        <UniTypography variant="h2" text={`RM${totalAmount!.toFixed(2)}`} />
+        <UniTypography
+          variant="h2"
+          text={`RM${(+subtotal! - +discount).toFixed(2)}`}
+        />
       </Box>
 
       <Grid container textAlign={"center"} spacing={2} mt={2}>
@@ -123,8 +144,7 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
             fullWidth
             sx={{
               py: 1,
-              borderRadius: 3,
-              border: paymentType === "cash" ? "2px solid #7CB9E8" : "inherit",
+              background: paymentType === "cash" ? "#5cbdb9" : "inherit",
             }}
             onClick={() => setPaymentType("cash")}
           >
@@ -136,8 +156,7 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
             fullWidth
             sx={{
               py: 1,
-              borderRadius: 3,
-              border: paymentType === "card" ? "2px solid #7CB9E8" : "inherit",
+              background: paymentType === "card" ? "#5cbdb9" : "inherit",
             }}
             onClick={() => setPaymentType("card")}
           >
@@ -149,9 +168,7 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
             fullWidth
             sx={{
               py: 1,
-              borderRadius: 3,
-              border:
-                paymentType === "ewallet" ? "2px solid #7CB9E8" : "inherit",
+              background: paymentType === "ewallet" ? "#5cbdb9" : "inherit",
             }}
             onClick={() => setPaymentType("ewallet")}
           >
@@ -166,7 +183,7 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
           label="Remark"
           variant="outlined"
           InputLabelProps={{ shrink: true }}
-          onChange={(e) => setAmountPaid(+e.target.value)}
+          onChange={(e) => setRemark(e.target.value!)}
         />
         <TextField
           sx={{ mt: 2 }}
@@ -178,11 +195,10 @@ const Cart: React.FC<CartProps> = ({ itemAdded, setAddToCart }) => {
           onChange={(e) => setAmountPaid(+e.target.value)}
         />
       </Box>
-
       <Box mt={2} textAlign={"right"}>
         {!!amountPaid && (
           <UniTypography
-            sx={{ color: amountPaid < totalAmount ? "red" : "inherit" }}
+            sx={{ color: amountPaid < total ? "red" : "inherit" }}
             variant="subtitle1"
             text={`Balance : RM ${balance}`}
           />

@@ -63,9 +63,11 @@ const TransactionModule = () => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ textAlign: "center" }}>Transaction ID</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>Total Amount</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>Amount Paid</TableCell>
-              <TableCell sx={{ textAlign: "center" }}>Balance</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>Subtotal (RM)</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>Total (RM)</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>Discount (RM)</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>Paid (RM)</TableCell>
+              <TableCell sx={{ textAlign: "center" }}>Balance (RM)</TableCell>
               <TableCell sx={{ textAlign: "center" }}>Date</TableCell>
               <TableCell sx={{ textAlign: "center" }}>Time</TableCell>
               <TableCell sx={{ textAlign: "center" }}>Action</TableCell>
@@ -76,7 +78,13 @@ const TransactionModule = () => {
               <TableRow key={idx}>
                 <TableCell sx={{ textAlign: "center" }}>{i.id}</TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
-                  {i.totalAmount}
+                  {i.subtotal}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {i.total}
+                </TableCell>
+                <TableCell sx={{ textAlign: "center" }}>
+                  {i.additionalDiscount}
                 </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   {i.amountPaid}

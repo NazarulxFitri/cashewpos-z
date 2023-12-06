@@ -12,13 +12,7 @@ interface ConfigCardProps {
   qty: number;
 }
 
-const ConfigCard: React.FC<ConfigCardProps> = ({
-  sku,
-  name,
-  price,
-  qty,
-}) => {
-
+const ConfigCard: React.FC<ConfigCardProps> = ({ sku, name, price, qty }) => {
   return (
     <Box
       sx={{
@@ -28,7 +22,7 @@ const ConfigCard: React.FC<ConfigCardProps> = ({
         p: 2,
       }}
     >
-      <Box display="flex">
+      <Box display="flex" mb={1}>
         <Box my="auto">
           <UniTypography
             sx={{ fontWeight: "700" }}
@@ -56,19 +50,19 @@ const ConfigCard: React.FC<ConfigCardProps> = ({
       </Box>
       <Box>
         <Image
-          src={`/eyeglasses.webp`}
+          src={`/example-2.webp`}
           alt="Cashew POS"
           width={300}
           height={200}
           style={{ width: "100%", height: "auto" }}
         />
       </Box>
-      <UniTypography variant="body1" text={name} />
-      <UniTypography variant="body1" text={`RM ${price}`} />
+      <Box mt={1}>
+        <UniTypography variant="body1" text={name} />
+        <UniTypography variant="body1" text={`RM ${price}`} />
+      </Box>
       <Box>
-        <ActionPopup
-          {...{ sku }}
-        />
+        <ActionPopup {...{ sku }} />
       </Box>
     </Box>
   );

@@ -19,8 +19,8 @@ const ReceiptModule = () => {
   const trxItem = data?.find((i) => i.id === id);
 
   return (
-    <Box mt={4} justifyContent={"center"} id="yesy">
-      <UniTypography variant="body1" sx={{ fontSize: "24px" }} text="Logo" />
+    <Box my={4} justifyContent={"center"} id="yesy">
+      <UniTypography variant="body1" sx={{ fontSize: "24px" }} text="The Eye Shop" />
       <Box>
         <Box>
           <UniTypography variant="h2" text={`Invoice no. - ${trxItem?.id}`} />
@@ -34,7 +34,6 @@ const ReceiptModule = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Item</TableCell>
-                  <TableCell>Remark</TableCell>
                   <TableCell sx={{ textAlign: "right" }}>Price</TableCell>
                 </TableRow>
               </TableHead>
@@ -45,7 +44,6 @@ const ReceiptModule = () => {
                       <TableCell>
                         {i.sku} | {i.name} | {i.color}
                       </TableCell>
-                      <TableCell></TableCell>
                       <TableCell sx={{ textAlign: "right" }}>
                         RM{i.price}
                       </TableCell>
@@ -53,29 +51,101 @@ const ReceiptModule = () => {
                   );
                 })}
                 <TableRow>
-                  <TableCell />
-                  <TableCell sx={{ fontWeight: "700" }} colSpan={1}>
+                  <TableCell sx={{ fontWeight: "700", borderBottom: "none" }}>
                     Subtotal
                   </TableCell>
-                  <TableCell sx={{ fontWeight: "700", textAlign: "right" }}>
-                    RM{trxItem?.totalAmount}
+                  <TableCell
+                    sx={{
+                      fontWeight: "700",
+                      textAlign: "right",
+                      borderBottom: "none",
+                    }}
+                  >
+                    RM{trxItem?.subtotal}
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell />
-                  <TableCell sx={{ fontWeight: "700" }} colSpan={1}>
+                  <TableCell
+                    sx={{ fontWeight: "700", borderBottom: "none" }}
+                    colSpan={1}
+                  >
+                    Discount
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontWeight: "700",
+                      textAlign: "right",
+                      borderBottom: "none",
+                    }}
+                  >
+                    - RM{trxItem?.additionalDiscount}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    sx={{ fontWeight: "700", borderBottom: "none" }}
+                    colSpan={1}
+                  >
+                    Total
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontWeight: "700",
+                      textAlign: "right",
+                      borderBottom: "none",
+                    }}
+                  >
+                    RM{trxItem?.total}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    sx={{ fontWeight: "700", borderBottom: "none" }}
+                    colSpan={1}
+                  >
+                    Payment type
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontWeight: "700",
+                      textAlign: "right",
+                      borderBottom: "none",
+                    }}
+                  >
+                    {trxItem?.paymentType}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell
+                    sx={{ fontWeight: "700", borderBottom: "none" }}
+                    colSpan={1}
+                  >
                     Amount paid
                   </TableCell>
-                  <TableCell sx={{ fontWeight: "700", textAlign: "right" }}>
+                  <TableCell
+                    sx={{
+                      fontWeight: "700",
+                      textAlign: "right",
+                      borderBottom: "none",
+                    }}
+                  >
                     RM{trxItem?.amountPaid}
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell />
-                  <TableCell sx={{ fontWeight: "700" }} colSpan={1}>
+                  <TableCell
+                    sx={{ fontWeight: "700", borderBottom: "none" }}
+                    colSpan={1}
+                  >
                     Balance
                   </TableCell>
-                  <TableCell sx={{ fontWeight: "700", textAlign: "right" }}>
+                  <TableCell
+                    sx={{
+                      fontWeight: "700",
+                      textAlign: "right",
+                      borderBottom: "none",
+                    }}
+                  >
                     RM{trxItem?.balance}
                   </TableCell>
                 </TableRow>
@@ -84,8 +154,22 @@ const ReceiptModule = () => {
           </TableContainer>
         </Box>
       </Box>
+      <Box mt={2} maxWidth={"400px"}>
+        <UniTypography variant="body1" text={`Remark : ${trxItem?.remark}`} />
+      </Box>
       <Box mt={4}>
-        <UniButton variant="outlined" onClick={() => window?.print()}>Print</UniButton>
+        <Box
+          sx={{
+            background: "#5cbdb9",
+            borderRadius: "24px",
+            py: 1,
+            px: 4,
+            width: "fit-content",
+          }}
+          onClick={() => window?.print()}
+        >
+          <UniTypography variant="body1" text="Print" />
+        </Box>
       </Box>
     </Box>
   );
